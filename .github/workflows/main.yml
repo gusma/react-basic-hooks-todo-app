@@ -20,9 +20,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-    - run: npm run build --if-present
-    - run: npm test
     - name: Deploy react app to github pages
       # You may pin to the exact commit or the version.
       # uses: tanwanimohit/deploy-react-to-ghpages@88c048cc9d31f67a792eec8cf9e94c10eb701dd2
