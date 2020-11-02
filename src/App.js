@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import generateId from './helpers/helpers';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [todos, setTodos] = React.useState([]);
+	const [input, setInput] = React.useState('');
+	const handleSubmit = () => {
+		setTodos((todos) =>
+			todos.concat({
+				text: input,
+				id: generateId(),
+			})
+		);
+		setInput('');
+	};
+
+	const removeTodo = (id) =>
+		setTodos((todos) => todos.filter((t) => t.id !== id));
+
+	return (
+		<div className='App'>
+			<input
+				type='text'
+				value={input}
+				placeholder='new todo'
+				onChange={(e) => setInput(e.target.value)}
+			></input>
+			<button onClick={handleSubmit}>Submit</button>
+			<ul>
+				{todos.map(({ text, id }) => (
+					<li key={id}>
+						<span>{text}</span>
+						<button onClick={() => removeTodo(id)}>x</button>
+					</li>
+				))}
+			</ul>
+		</div>
+	);
 }
 
 export default App;
